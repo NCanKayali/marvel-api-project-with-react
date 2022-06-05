@@ -1,38 +1,292 @@
-.App {
-  text-align: center;
+/*=============== BASE ===============*/
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+html,
+body {
+  height: 100vh;
+  width: 100%;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  color: darkcyan;
+  background: #000 url("./images/Marver-background-image.jpg") repeat-y center center/cover;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+
+/*=============== SCROLL BAR ===============*/
+
+::-webkit-scrollbar {
+  width: .7rem;
+  background-color: #6a0c0b;
+  border-radius: 1rem;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+::-webkit-scrollbar-thumb {
+  background-color: #fbca03;
+  border-radius: 1rem;
+}
+
+/*========== lOADİNG ==========*/
+
+.loading {
+  height: 50vh;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  align-items: center;
+  font-size: 30px;
   color: white;
+  border-radius: 25px;
+  background-color: #6a0c0b;
+  opacity: .8;
 }
 
-.App-link {
-  color: #61dafb;
+.loading .shield {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  -webkit-animation: rotating 2s linear infinite;
+  -moz-animation: rotating 2s linear infinite;
+  -ms-animation: rotating 2s linear infinite;
+  -o-animation: rotating 2s linear infinite;
+  animation: rotating 2s linear infinite;
 }
 
-@keyframes App-logo-spin {
+@-webkit-keyframes rotating
+
+/* Safari and Chrome */
+  {
   from {
+    -webkit-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
     transform: rotate(0deg);
   }
+
   to {
+    -webkit-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
     transform: rotate(360deg);
+  }
+}
+
+@keyframes rotating {
+  from {
+    -ms-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+
+  to {
+    -ms-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+
+/*=============== REUSABLE CSS CLASSES ===============*/
+
+/* Container Wrapper */
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* For Header Component */
+
+.header {
+  width: 100%;
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom-right-radius: 20px;
+  border-bottom-left-radius: 20px;
+  background-color: rgba(8, 216, 216, .7);
+  margin-bottom: 3rem;
+}
+
+.header .marvel_logo {
+  width: 150px;
+  height: 50px;
+}
+
+/* For CharacterTable Component */
+
+.contents {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.2rem;
+}
+
+/* For Character Component */
+
+.content {
+  width: 250px;
+  height: 300px;
+  background-color: transparent;
+  perspective: 1000px;
+  cursor: pointer;
+  box-shadow: 0 0 4px #333;
+  background: rgba(228, 227, 227, .8) url("./images/marvel-logo.png") no-repeat center center/contain;
+  text-align: center;
+  border-radius: 7px;
+}
+
+.content_inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform .8s;
+  transform-style: preserve-3d;
+}
+
+.content:hover .content_inner {
+  transform: rotateY(180deg);
+}
+
+.front_img {
+  border-top-left-radius: 7px;
+  border-top-right-radius: 7px;
+  width: 250px;
+  min-height: 220px;
+  max-height: 220px;
+}
+
+.content_front .content_title {
+  height: 75px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.content_front,
+.content_back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  overflow: hidden;
+  overflow-y: auto;
+}
+
+.content_back {
+  padding: 20px;
+  color: white;
+  border-radius: 7px;
+  transform: rotateY(180deg);
+  background: linear-gradient(90deg, #FFE227 48%, #FBFF00 100%, rgba(255, 0, 0, 0) 100%);
+}
+
+/* content_back scrollbar */
+
+.content_back::-webkit-scrollbar {
+  width: .6rem;
+  background-color: #FBFF00;
+  border-radius: 1rem;
+}
+
+.content_back::-webkit-scrollbar-thumb {
+  background-color: #5B4B8A;
+  border-radius: 1rem;
+}
+
+.content_back::-webkit-scrollbar-thumb:hover {
+  background-color: #7858A6;
+}
+
+.content_back .title {
+  color: #3797A4;
+  font-size: 20px;
+  margin-bottom: 5px;
+}
+
+.content li {
+  list-style: none;
+  margin: 10px 0;
+  color: #001E6C;
+  font-size: 15px;
+  word-spacing: .8px;
+  line-height: 18px;
+  text-align: justify;
+}
+
+/*=============== BREAKPOINTS ===============*/
+
+/* For small devices */
+
+@media screen and (min-width: 200px) and (max-width: 576px) {
+
+  .container {
+    width: 85%;
+  }
+
+  .contents {
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+  .content {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .front_img {
+    width: 100%;
+  }
+}
+
+/* For medium devices */
+
+@media screen and (min-width: 577px) {
+  .container {
+    max-width: 700px;
+  }
+
+  .contents {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .content {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .front_img {
+    width: 100%;
+  }
+}
+
+/* For large devices */
+
+@media screen and (min-width: 800px) {
+
+  .contents {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* For desktop devices */
+
+@media screen and (min-width: 1041px) {
+  .container {
+    max-width: 1100px;
+    padding: 0 25px;
+  }
+
+  .contents {
+    grid-template-columns: repeat(4, 1fr);
   }
 }
