@@ -3,7 +3,7 @@ import PropTypes from "prop-types"
 
 const Character = ({ character }) => {
 
-    //? Fnction to sort comics by date from old to new
+    //? Function to sort comics by date from old to new
     const sortComics = character.comics.items.sort((a, b) => {
         return a.name.match(/[0-9]+/) - b.name.match(/[0-9]+/)
     })
